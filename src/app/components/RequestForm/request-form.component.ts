@@ -11,6 +11,7 @@ import {RequestAuthService} from "../../services/request.service";
 	providers: [RequestAuthService]
 })
 export class RequestFormComponent{
+	
 	isFormInvalid:boolean = false;
 	requestInviteForm: FormGroup;
 	@Output() confirmation: EventEmitter<any> = new EventEmitter();
@@ -20,10 +21,12 @@ export class RequestFormComponent{
 	constructor(private _formBuilder: FormBuilder, private _requestService: RequestAuthService){
 				
 		this.requestInviteForm = _formBuilder.group({
+			
 			'fullName': ['', [
 				Validators.required,
 				this.minThreeChars
 			]],
+			
 			'emailGroup': _formBuilder.group({
 				'email': ['', [
 					Validators.required,
@@ -33,6 +36,7 @@ export class RequestFormComponent{
 					Validators.required
 				]]
 			}, {validator:this.emailMatchValidator})
+		
 		});
 		
 	}
@@ -40,10 +44,14 @@ export class RequestFormComponent{
 	onSubmit() {
 		
 		if(this.requestInviteForm.invalid){
-			this.isFormInvalid = true
+			
+			this.isFormInvalid = true;
+			
 		} else {
+			
 			this.sending = true;
 			this.serverError = false;
+			
 			this._requestService.authenticateInvite({
 				name: this.requestInviteForm.value.fullName,
 				email: this.requestInviteForm.value.emailGroup.email
@@ -60,6 +68,7 @@ export class RequestFormComponent{
 		}
 	}
 	
+	//Validator to check minimum three characters
 	minThreeChars(control: ControlGroup):{[s:string]:boolean}{
 		
 		if (control.value.length > 2){
@@ -70,16 +79,18 @@ export class RequestFormComponent{
 		
 	}
 	
+	//Validate email format
 	emailValidator(control: ControlGroup):{[s:string]:boolean}{
 		if (!control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
 			
 			return { 'invalidEmailAddress': true };
 		}
-		
 		return null;
 	}
 	
+	//Validate if email and confirm email match.
 	emailMatchValidator(group: FormGroup):{[s:string]:boolean}{
+		
 		let fields = {};
 		for (name in group.controls) {
 			var val = group.controls[name].value;
@@ -90,6 +101,7 @@ export class RequestFormComponent{
 		if (!(fields['email'] == fields['confirmEmail'])){
 			return { 'emailMismatch': true}
 		}
+		
 		return null;
 	}
 	

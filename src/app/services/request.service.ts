@@ -6,11 +6,9 @@ import 'rxjs/Rx';
 @Injectable()
 export class RequestAuthService {
 	
+	constructor(private _http:Http){}
 	
-	constructor(private _http:Http){
-		
-	}
-	
+	//Trigger Service
 	authenticateInvite(query){
 		let body = JSON.stringify(query);
 		let headers = new Headers({'Content-Type':'application/json'});

@@ -10,13 +10,16 @@ import {ConfirmationComponent} from "./components/Confirmation/confirmation.comp
 	directives: [RequestFormComponent, ConfirmationComponent]
 })
 export class AppComponent {
+	
 	requestModal: boolean = false;
 	confirmation: boolean = false;
 	
+	//Open Modal window Form
 	renderModal(){
 		this.requestModal = true;
 	}
 	
+	//Confirmation Popup
 	activateConfirmation(state){
 		this.requestModal = false;
 		this.confirmation = state;
