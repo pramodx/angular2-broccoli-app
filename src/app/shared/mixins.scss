@@ -1,0 +1,37 @@
+/********* MEDIA QUERIES **********/
+
+$tablet-width: 768px;
+$sm-desktop-width: 992px;
+$lg-desktop-width: 1200px;
+$xl-desktop-width: 1600px;
+
+@mixin tablet {
+    @media (min-width: #{$tablet-width})  {
+        @content;
+    }
+}
+
+@mixin sm-desktop {
+    @media (min-width: #{$sm-desktop-width}) {
+        @content;
+    }
+}
+
+@mixin lg-desktop {
+    @media (min-width: #{$lg-desktop-width}) {
+        @content;
+    }
+}
+
+@mixin xl-desktop {
+    @media (min-width: #{$xl-desktop-width}) {
+        @content;
+    }
+}
+
+/********* FONT SIZE **********/
+
+@mixin font-size($sizeValue: 16) {
+    font-size: ($sizeValue) + px;
+    font-size: ($sizeValue / 10) + rem;
+}

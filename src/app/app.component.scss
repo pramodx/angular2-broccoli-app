@@ -1,0 +1,67 @@
+@import "./shared/mixins";
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    color: #339;
+    font-family: 'Nunito', sans-serif;
+    background: #fff; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#fff, #eee); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#fff, #eee); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#fff, #eee); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#fff, #eee); /* Standard syntax */
+}
+h1, h2, h3 {
+    margin: 0;
+}
+header, footer {
+    max-height: 50px;
+    @include tablet {
+        max-height: 70px;
+    }
+}
+header {
+    padding: 20px 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid #339;
+    h1 {
+        @include font-size(14);
+
+        @include tablet {
+            @include font-size(20)
+        }
+    }
+}
+.main {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #339;
+    .container {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+    .content {
+        h2, h3 {
+            margin-bottom: 10px;
+        }
+    }
+}
+footer {
+    padding: 5px 0;
+    @include tablet {
+        padding: 15px 0;
+    }
+    text-align: center;
+    line-height: 1;
+    p {
+        margin-bottom: 5px;
+    }
+}
