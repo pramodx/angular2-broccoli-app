@@ -2,5 +2,6 @@
   <h2>A better way<br/> to enjoy every day.</h2>
   <p>Be the first to know when we launch.</p>
   <button class="btn btn-primary" (click)="renderModal()">Request an Invite</button>
-  <request-form *ngIf="modal"></request-form>
+  <request-form (confirmation)="activateConfirmation($event)" *ngIf="requestModal"></request-form>
+  <confirmation (confirmation)=activateConfirmation($event) *ngIf="confirmation"></confirmation>
 </div>

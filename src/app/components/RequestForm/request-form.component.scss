@@ -26,16 +26,27 @@
 }
 .request-form {
     form {
-        span.error {
-            display: none;
+        span.error,
+        span.email-error{
             width: 100%;
             color: #f00;
             text-align: left;
+        }
+        span.email-error {
+            display: inline-block;
+        }
+        span.error{
+            display: none;
         }
         &.isFormInvalid {
             .ng-invalid + span.error {
                 display: inline-block;
             }
         }
+    }
+    .serverError {
+        margin-bottom: 20px;
+        color: #f00;
+        text-transform: uppercase;
     }
 }

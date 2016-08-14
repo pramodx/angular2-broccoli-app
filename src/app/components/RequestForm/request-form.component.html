@@ -4,7 +4,7 @@
         <form [formGroup]="requestInviteForm" (ngSubmit)="onSubmit()" [class.isFormInvalid]="isFormInvalid">
             <div class="form-group">
                 <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Full Name" formControlName="fullName">
-                <span class="error">Please enter Full Name</span>
+                <span class="error">Please enter Full Name ( at least 3 chars )</span>
             </div>
             <div formGroupName="emailGroup">
                 <div class="form-group">
@@ -13,11 +13,11 @@
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="confirmEmail" name="confirmEmail" placeholder="Confirm Email" formControlName="confirmEmail">
-                    <span *ngIf="requestInviteForm.controls.emailGroup.errors" class="error">Please ensure Email and Email Confirmation match</span>
-
+                    <span *ngIf="requestInviteForm.controls.emailGroup.errors" class="email-error">Please ensure Email and Email Confirmation match</span>
                 </div>
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <div *ngIf="serverError" class="serverError">Email already in use. Try Again</div>
+            <button type="submit" [innerHTML]="sending ? 'Sending, please wait..' : 'Submit' " class="btn btn-default"></button>
         </form>
     </div>
 </div>

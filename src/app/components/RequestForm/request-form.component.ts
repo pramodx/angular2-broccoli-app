@@ -1,29 +1,24 @@
-import {Component} from "@angular/core";
+import {Component, Output, EventEmitter} from "@angular/core";
 import {FormGroup, REACTIVE_FORM_DIRECTIVES, Validators, FormBuilder} from "@angular/forms";
 import {ControlGroup} from "@angular/common";
+import {RequestAuthService} from "../../services/request.service";
 
 @Component({
 	selector: 'request-form',
 	templateUrl: 'request-form.component.html',
 	styleUrls: ['request-form.component.scss'],
-	directives: [REACTIVE_FORM_DIRECTIVES]
+	directives: [REACTIVE_FORM_DIRECTIVES],
+	providers: [RequestAuthService]
 })
 export class RequestFormComponent{
 	isFormInvalid:boolean = false;
 	requestInviteForm: FormGroup;
+	@Output() confirmation: EventEmitter<any> = new EventEmitter();
+	serverError: boolean = false;
+	sending: boolean = false;
 	
-	constructor(private _formBuilder: FormBuilder){
-		// this.requestInviteForm = new FormGroup({
-		// 	'fullName': new FormControl('', Validators.required),
-		// 	'emailGroup': new FormGroup({
-		// 		'email': new FormControl('', [
-		// 			Validators.required,
-		// 			Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-		// 		]),
-		// 		'confirmEmail': new FormControl('', Validators.required)
-		// 	})
-		// })
-		
+	constructor(private _formBuilder: FormBuilder, private _requestService: RequestAuthService){
+				
 		this.requestInviteForm = _formBuilder.group({
 			'fullName': ['', [
 				Validators.required,
@@ -38,16 +33,30 @@ export class RequestFormComponent{
 					Validators.required
 				]]
 			}, {validator:this.emailMatchValidator})
-		})
-		
+		});
 		
 	}
 	
 	onSubmit() {
+		
 		if(this.requestInviteForm.invalid){
 			this.isFormInvalid = true
 		} else {
-			console.log('Submitting', this.requestInviteForm)
+			this.sending = true;
+			this.serverError = false;
+			this._requestService.authenticateInvite({
+				name: this.requestInviteForm.value.fullName,
+				email: this.requestInviteForm.value.emailGroup.email
+			}).subscribe(
+				(data) => {
+					this.confirmation.emit(true);
+					this.sending = false;
+				},
+				(error) => {
+					this.serverError = true;
+					this.sending = false;
+				}
+			)
 		}
 	}
 	
@@ -74,7 +83,7 @@ export class RequestFormComponent{
 		let fields = {};
 		for (name in group.controls) {
 			var val = group.controls[name].value;
-			//console.log(val)
+			
 			fields[name] = group.controls[name].value;
 		}
 		

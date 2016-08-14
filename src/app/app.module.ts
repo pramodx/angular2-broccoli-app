@@ -3,6 +3,7 @@ import {NgModule, ApplicationRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
+import {HttpModule} from "@angular/http";
 
 @NgModule({
 	declarations: [
@@ -12,7 +13,8 @@ import {AppComponent} from './app.component';
 		BrowserModule,
 		CommonModule,
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		HttpModule
 	],
 	providers: [],
 	entryComponents: [AppComponent],

@@ -1,17 +1,24 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {RequestFormComponent} from "./components/RequestForm/request-form.component";
+import {ConfirmationComponent} from "./components/Confirmation/confirmation.component";
 
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
 	encapsulation: ViewEncapsulation.None,
 	styleUrls: ['app.component.scss'],
-	directives: [RequestFormComponent]
+	directives: [RequestFormComponent, ConfirmationComponent]
 })
 export class AppComponent {
-	modal: boolean = false;
+	requestModal: boolean = false;
+	confirmation: boolean = false;
 	
 	renderModal(){
-		this.modal = true;
+		this.requestModal = true;
+	}
+	
+	activateConfirmation(state){
+		this.requestModal = false;
+		this.confirmation = state;
 	}
 }
