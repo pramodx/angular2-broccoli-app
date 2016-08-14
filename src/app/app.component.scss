@@ -15,6 +15,11 @@ body {
     background: -o-linear-gradient(#fff, #eee); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#fff, #eee); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#fff, #eee); /* Standard syntax */
+
+    * {
+        box-sizing: border-box;
+    }
+
 }
 h1, h2, h3 {
     margin: 0;

@@ -1,0 +1,23 @@
+<div class="backdrop">
+    <div class="form-container request-form">
+        <h3>Request an Invite</h3>
+        <form [formGroup]="requestInviteForm" (ngSubmit)="onSubmit()" [class.isFormInvalid]="isFormInvalid">
+            <div class="form-group">
+                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Full Name" formControlName="fullName">
+                <span class="error">Please enter Full Name</span>
+            </div>
+            <div formGroupName="emailGroup">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" formControlName="email">
+                    <span class="error">Please enter a valid Email</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="confirmEmail" name="confirmEmail" placeholder="Confirm Email" formControlName="confirmEmail">
+                    <span *ngIf="requestInviteForm.controls.emailGroup.errors" class="error">Please ensure Email and Email Confirmation match</span>
+
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+</div>
